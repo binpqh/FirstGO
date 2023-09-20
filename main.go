@@ -1,18 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"gorm.io/driver/sqlserver"
+	"gorm.io/gen"
+	"gorm.io/gorm"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
-	//variable
-	var a int = 1
-	varx := 1
-	cong := a + varx
-	nhan := a * varx
-	if false {
-		fmt.Println("Ket qua lon hon hoac bang 2")
-	} else {
-		fmt.Println("Ket qua nho hon 2")
-	}
-	fmt.Println("cong 2 so", cong, "nhan 2 so", nhan)
+	g := gen.NewGenerator(gen.Config{
+		OutPath: "./pkg/query",
+		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
+	})
+	dsn := "sqlserver://sa:b123@localhost:1433?database=SM.V1"
+	gormdb, _ := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
+	g.UseDB(gormdb)
+	g.ApplyBasic(
+		// Generate structs from all tables of current database
+		g.GenerateAllTable()...,
+	)
+	// Generate the code
+	g.Execute()
 }

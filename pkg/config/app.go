@@ -1,4 +1,5 @@
 package config
-import(
-	"gorm.io/gorm"
+
+import (
+	_ "gorm.io/gorm"
 )
