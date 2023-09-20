@@ -21,7 +21,6 @@ var (
 	DetailTranscript *detailTranscript
 	Student          *student
 	Subject          *subject
-	Sysdiagram       *sysdiagram
 	Teacher          *teacher
 	TimeTable        *timeTable
 	Transcript       *transcript
@@ -35,7 +34,6 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	DetailTranscript = &Q.DetailTranscript
 	Student = &Q.Student
 	Subject = &Q.Subject
-	Sysdiagram = &Q.Sysdiagram
 	Teacher = &Q.Teacher
 	TimeTable = &Q.TimeTable
 	Transcript = &Q.Transcript
@@ -50,7 +48,6 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		DetailTranscript: newDetailTranscript(db, opts...),
 		Student:          newStudent(db, opts...),
 		Subject:          newSubject(db, opts...),
-		Sysdiagram:       newSysdiagram(db, opts...),
 		Teacher:          newTeacher(db, opts...),
 		TimeTable:        newTimeTable(db, opts...),
 		Transcript:       newTranscript(db, opts...),
@@ -66,7 +63,6 @@ type Query struct {
 	DetailTranscript detailTranscript
 	Student          student
 	Subject          subject
-	Sysdiagram       sysdiagram
 	Teacher          teacher
 	TimeTable        timeTable
 	Transcript       transcript
@@ -83,7 +79,6 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		DetailTranscript: q.DetailTranscript.clone(db),
 		Student:          q.Student.clone(db),
 		Subject:          q.Subject.clone(db),
-		Sysdiagram:       q.Sysdiagram.clone(db),
 		Teacher:          q.Teacher.clone(db),
 		TimeTable:        q.TimeTable.clone(db),
 		Transcript:       q.Transcript.clone(db),
@@ -107,7 +102,6 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		DetailTranscript: q.DetailTranscript.replaceDB(db),
 		Student:          q.Student.replaceDB(db),
 		Subject:          q.Subject.replaceDB(db),
-		Sysdiagram:       q.Sysdiagram.replaceDB(db),
 		Teacher:          q.Teacher.replaceDB(db),
 		TimeTable:        q.TimeTable.replaceDB(db),
 		Transcript:       q.Transcript.replaceDB(db),
@@ -121,7 +115,6 @@ type queryCtx struct {
 	DetailTranscript IDetailTranscriptDo
 	Student          IStudentDo
 	Subject          ISubjectDo
-	Sysdiagram       ISysdiagramDo
 	Teacher          ITeacherDo
 	TimeTable        ITimeTableDo
 	Transcript       ITranscriptDo
@@ -135,7 +128,6 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		DetailTranscript: q.DetailTranscript.WithContext(ctx),
 		Student:          q.Student.WithContext(ctx),
 		Subject:          q.Subject.WithContext(ctx),
-		Sysdiagram:       q.Sysdiagram.WithContext(ctx),
 		Teacher:          q.Teacher.WithContext(ctx),
 		TimeTable:        q.TimeTable.WithContext(ctx),
 		Transcript:       q.Transcript.WithContext(ctx),
