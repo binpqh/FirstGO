@@ -34,11 +34,12 @@ func newClass(db *gorm.DB, opts ...gen.DOOption) class {
 type class struct {
 	classDo
 
-	ALL     field.Asterisk
-	ClassID field.Int64
-	Name    field.String
-
-	fieldMap map[string]field.Expr
+	ALL        field.Asterisk
+	ClassID    field.Int64
+	Name       field.String
+	SchoolYear field.Int64
+	Grade      field.Int64
+	fieldMap   map[string]field.Expr
 }
 
 func (c class) Table(newTableName string) *class {
@@ -55,7 +56,8 @@ func (c *class) updateTableName(table string) *class {
 	c.ALL = field.NewAsterisk(table)
 	c.ClassID = field.NewInt64(table, "ClassId")
 	c.Name = field.NewString(table, "Name")
-
+	c.SchoolYear = field.NewInt64(table, "SchoolYear")
+	c.Grade = field.NewInt64(table, "Grade")
 	c.fillFieldMap()
 
 	return c
