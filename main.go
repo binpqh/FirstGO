@@ -1,23 +1,29 @@
 package main
 
 import (
-	"gorm.io/driver/sqlserver"
-	"gorm.io/gen"
-	"gorm.io/gorm"
+	"context"
+	"firstGO/pkg/config"
+	"firstGO/pkg/model"
+	"firstGO/pkg/query"
+	"fmt"
 )
 
 func main() {
-	g := gen.NewGenerator(gen.Config{
-		OutPath: "./pkg/query",
-		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
+	err := config.ConnectDb()
+	if err == nil {
+		fmt.Printf("Ket noi thanh cong")
+	}
+	query.SetDefault(config.GetDb())
+	ctx := context.Background()
+	err1 := query.Q.Class.Create(&model.Class{
+		Name: "Lop2",
 	})
-	dsn := "sqlserver://sa:b123@localhost:1433?database=SM.V1"
-	gormdb, _ := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
-	g.UseDB(gormdb)
-	g.ApplyBasic(
-		// Generate structs from all tables of current database
-		g.GenerateAllTable()...,
-	)
-	// Generate the code
-	g.Execute()
+	if err1 != nil {
+		fmt.Printf("Create loi~")
+	}
+	u := query.Q.Class
+	class, err2 := u.WithContext(ctx).Where(u.Name.Eq("Lop2")).Delete()
+	if err2 != nil {
+		fmt.Printf("Lay du lieu thanh cong", class.Error)
+	}
 }
