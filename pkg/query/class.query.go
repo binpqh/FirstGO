@@ -25,7 +25,6 @@ func newClass(db *gorm.DB, opts ...gen.DOOption) class {
 	_class.ALL = field.NewAsterisk(tableName)
 	_class.ClassID = field.NewInt64(tableName, "ClassId")
 	_class.Name = field.NewString(tableName, "Name")
-	_class.TimeTableID = field.NewInt64(tableName, "TimeTableId")
 
 	_class.fillFieldMap()
 
@@ -35,10 +34,9 @@ func newClass(db *gorm.DB, opts ...gen.DOOption) class {
 type class struct {
 	classDo
 
-	ALL         field.Asterisk
-	ClassID     field.Int64
-	Name        field.String
-	TimeTableID field.Int64
+	ALL     field.Asterisk
+	ClassID field.Int64
+	Name    field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -57,7 +55,6 @@ func (c *class) updateTableName(table string) *class {
 	c.ALL = field.NewAsterisk(table)
 	c.ClassID = field.NewInt64(table, "ClassId")
 	c.Name = field.NewString(table, "Name")
-	c.TimeTableID = field.NewInt64(table, "TimeTableId")
 
 	c.fillFieldMap()
 
@@ -77,7 +74,6 @@ func (c *class) fillFieldMap() {
 	c.fieldMap = make(map[string]field.Expr, 3)
 	c.fieldMap["ClassId"] = c.ClassID
 	c.fieldMap["Name"] = c.Name
-	c.fieldMap["TimeTableId"] = c.TimeTableID
 }
 
 func (c class) clone(db *gorm.DB) class {

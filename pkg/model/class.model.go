@@ -4,9 +4,8 @@ const TableNameClass = "Class"
 
 // Class mapped from table <Class>
 type Class struct {
-	ClassID     int64  `gorm:"column:ClassId;primaryKey" json:"ClassId"`
-	Name        string `gorm:"column:Name" json:"Name"`
-	TimeTableID int64  `gorm:"column:TimeTableId" json:"TimeTableId"`
+	ClassID int64  `gorm:"column:ClassId;primaryKey" json:"ClassId"`
+	Name    string `gorm:"column:Name" json:"Name"`
 }
 
 // TableName Class's table name
